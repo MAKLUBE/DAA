@@ -1,8 +1,6 @@
 # DAA - Assignment_1
 
-Merge sort
-
-Optimizations that were given to implement:
-         * Linear merge
-         * Reusable buffer
-         * small-n cut-off(e.g insertion sort)
+QuickSort (robust)
+        • Randomized pivot;
+        • recurse on the smaller partition, iterate over the larger one
+        • (bounded stack ≈ O(log n) typical).
