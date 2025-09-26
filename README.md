@@ -1,8 +1,8 @@
 # DAA - Assignment_1
 
-Metrics 
+Merge sort
 
-Metrics that were used:
-    * counters
-    * depth tracker
-    * CSV wrtier
+Optimizations that were given to implement:
+         * Linear merge
+         * Reusable buffer
+         * small-n cut-off(e.g insertion sort)
