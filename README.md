@@ -1,24 +1,32 @@
 # DAA - Assignment_1
 
-## QuickSort
 
-**Idea.** Classical QuickSort with robustness tweaks:
-- **Randomized pivot:** choose pivot uniformly from `[lo..hi]` (fixed seed in tests for reproducibility).
-- **Smaller-first recursion:** recurse **only** into the smaller side; handle the larger side via tail iteration → stack is typically `O(log n)`.
-- **Partition:** Hoare 2-way scheme.
+# Analysis
+
+## Deterministic Select (Median-of-Medians, MoM5)
+
+**Idea.** Find the k-th smallest element in linear time without fully sorting.
+- Split the array into groups of **5**, sort each small group, take their **medians**.
+- **Select recursively** the median of these medians → pivot.
+- **3-way partition** around the pivot (`<`, `=`, `>`), then recurse **only** into the side that contains k  
+  (prefer recursing into the smaller side to keep depth small).
+- For tiny ranges use **insertion sort** (cutoff).
 
 **Complexity.**
-- Expected/average: `T(n) = T(X) + T(n−1−X) + Θ(n)` with random pivot ⇒ `Θ(n log n)`.
-- Worst case (without randomness): `Θ(n^2)`; with randomness the probability of bad splits is low.
-- Space: in-place `O(1)` extra memory; recursion depth ≈ `O(log n)` (due to smaller-first).
+- Recurrence: `T(n) = T(n/5) + T(≤7n/10) + Θ(n)` ⇒ **Θ(n)** (Akra–Bazzi / constant-fraction shrink).
+- Space: in-place `O(1)` extra memory (besides recursion stack).
+- Depth: **O(log n)** (because each step shrinks n by a constant fraction).
 
 **Metrics (what we track).**
-- `comps` — comparisons against the pivot (inside Hoare partition);
-- `copies` — assignments due to swaps (3 per swap);
-- `depth` — max recursion depth (counted only on the actual recursive calls to the smaller side);
+- `comps` — comparisons (in insertion/partition decisions);
+- `copies` — assignments (swaps, shifts in insertion sort);
+- `depth` — max recursion depth (counted on actual recursive enter);
 - `allocs` — `0` (no big buffers).
 
 **Tests.**
+- **Correctness**: compare against `Arrays.sort(a)[k]` on 50 random trials (various n and k).
+- **Edge cases**: small n, duplicates, k at edges (0 and n−1).
+=======
 - Correctness on random, already-sorted, reversed, and all-equal arrays.
 - Depth check: `depth ≤ ~ 2 * ⌊log2 n⌋ + O(1)` on random inputs (tested at powers of two).
 - Case comparison: `sorted`, `reversed`, `allEqual`.
