@@ -1,23 +1,24 @@
 # DAA - Assignment_1
 
+## QuickSort
 
-# MergeSort (D&C, Master Case 2)
+**Idea.** Classical QuickSort with robustness tweaks:
+- **Randomized pivot:** choose pivot uniformly from `[lo..hi]` (fixed seed in tests for reproducibility).
+- **Smaller-first recursion:** recurse **only** into the smaller side; handle the larger side via tail iteration → stack is typically `O(log n)`.
+- **Partition:** Hoare 2-way scheme.
 
-• Linear merge;
-• reusable buffer;
-• small-n cut-off (e.g., insertion sort)
+**Complexity.**
+- Expected/average: `T(n) = T(X) + T(n−1−X) + Θ(n)` with random pivot ⇒ `Θ(n log n)`.
+- Worst case (without randomness): `Θ(n^2)`; with randomness the probability of bad splits is low.
+- Space: in-place `O(1)` extra memory; recursion depth ≈ `O(log n)` (due to smaller-first).
 
-# Analysis
-MergeSort (Case 2 of Master)
-* Recurrence (worst/avg):
-    * T(n) = 2T(n/2) + O(thetha)(n)
-* Master Theorem:
-  a = 2, b = 2
-  f(n) => O(n) => O(n^log_b a) => Case 2
-  => T(n) = O(n log n)
+**Metrics (what we track).**
+- `comps` — comparisons against the pivot (inside Hoare partition);
+- `copies` — assignments due to swaps (3 per swap);
+- `depth` — max recursion depth (counted only on the actual recursive calls to the smaller side);
+- `allocs` — `0` (no big buffers).
 
-Depth: Log_2 n levels (stack = O(log n))
-Constant factors(implementation):
-* Single reusable buffer (1 alloc)
-* Linear merge
-* Cutoff(insertion)
+**Tests.**
+- Correctness on random, already-sorted, reversed, and all-equal arrays.
+- Depth check: `depth ≤ ~ 2 * ⌊log2 n⌋ + O(1)` on random inputs (tested at powers of two).
+- Case comparison: `sorted`, `reversed`, `allEqual`.
