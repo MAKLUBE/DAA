@@ -1,5 +1,4 @@
 package org.example.algos;
-
 import org.example.metrics.Counters;
 import org.example.metrics.DepthTracker;
 
@@ -82,7 +81,7 @@ public final class MergeSort {
             int x = a[pos]; counters.copies++; // читаем/держим ключ (считаем как присваивание ключа)
             int j = pos - 1;
             while (j >= l) {
-                counters.comps++;              // comparing in loop
+                counters.comps++;              // compare loop
                 if (a[j] <= x) break;
                 a[j + 1] = a[j]; counters.copies++;
                 j--;
