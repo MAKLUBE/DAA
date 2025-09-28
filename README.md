@@ -1,5 +1,6 @@
 # DAA - Assignment_1
 
+
 # Analysis
 
 ## Deterministic Select (Median-of-Medians, MoM5)
@@ -25,3 +26,7 @@
 **Tests.**
 - **Correctness**: compare against `Arrays.sort(a)[k]` on 50 random trials (various n and k).
 - **Edge cases**: small n, duplicates, k at edges (0 and n−1).
+=======
+- Correctness on random, already-sorted, reversed, and all-equal arrays.
+- Depth check: `depth ≤ ~ 2 * ⌊log2 n⌋ + O(1)` on random inputs (tested at powers of two).
+- Case comparison: `sorted`, `reversed`, `allEqual`.
