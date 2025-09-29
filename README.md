@@ -61,7 +61,7 @@ Divide & Conquer algorithms with safe recursion patterns, metrics, and empirical
   - QS: allocs = 0; more comparisons but fewer bulk copies (in-place).
   - Select: comparisons grow ≈ linearly; allocs = 0.
   - Closest: allocs = 1; linearithmic comparisons.
-
+  - 
 ---
 
 ## Theory and Practice
@@ -69,7 +69,6 @@ Divide & Conquer algorithms with safe recursion patterns, metrics, and empirical
 - QuickSort matches Θ(n log n); stack bounded near O(log n); timings comparable to MS, often better at large n thanks to in-place work.
 - Select (MoM5) shows Θ(n) scaling (time & comps); constants dominate at small n, linear growth wins as n increases.
 - Closest Pair shows Θ(n log n); strip work constant per point; one-buffer behavior as designed.
-
 
 ## Plots
 
